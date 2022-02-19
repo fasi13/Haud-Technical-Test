@@ -1,42 +1,23 @@
 const initState = {
   loading: false,
-  isCreateUserFetching: false,
   users: [],
   error: "",
 };
 
 const userReducer = (state = initState, action) => {
   switch (action.type) {
-    // REQUEST
     case "FETCH_USERS_START":
-      return {
-        ...state,
-        loading: true,
-      };
-    case "CREATE_USER_REQUEST":
-      return {
-        ...state,
-
-        isCreateUserFetching: true,
-      };
-    case "DELETE_USER_REQUEST":
-      return {
-        ...state,
-        loading: true,
-      };
+    case "DELETE_USER_START":
     case "FETCH_USER_REQUEST":
-      return {
-        ...state,
-        loading: true,
-      };
-    case "UPDATE_USER_REQUEST":
+    case "UPDATE_USER_START":
+    case "CREATE_USER_START":
       return {
         ...state,
         loading: true,
       };
 
-    // SUCCESS
     case "FETCH_USERS_SUCCESS":
+    case "FETCH_USER_SUCCESS":
       return {
         ...state,
         loading: false,
@@ -46,7 +27,6 @@ const userReducer = (state = initState, action) => {
     case "CREATE_USER_SUCCESS":
       let createUsers = state.users || [];
       [action.payload.userId] = action.payload.user;
-
       return {
         ...state,
         users: createUsers,
@@ -63,13 +43,7 @@ const userReducer = (state = initState, action) => {
         users: deleteUsers,
         error: "",
       };
-    case "FETCH_USER_SUCCESS":
-      return {
-        ...state,
-        loading: false,
-        users: action.payload,
-        error: "",
-      };
+
     case "UPDATE_USER_SUCCESS":
       return {
         ...state,
@@ -78,31 +52,10 @@ const userReducer = (state = initState, action) => {
         error: "",
       };
 
-    // FAILURE
     case "FETCH_USERS_FAILURE":
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
     case "CREATE_USER_FAILURE":
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
     case "DELETE_USER_FAILURE":
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
     case "FETCH_USER_FAILURE":
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
     case "UPDATE_USER_FAILURE":
       return {
         ...state,

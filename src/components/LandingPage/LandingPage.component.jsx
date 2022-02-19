@@ -1,17 +1,21 @@
 import React, { useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { connect } from "react-redux";
-import { deleteUser, fetchUserStartAsync } from "../../redux/userList/userActions";
+import {
+  deleteUserStartAsync,
+  fetchUsersStartAsync,
+} from "../../redux/userList/userActions";
 
 const LandingPage = (props) => {
+  const {fetchUser,deleteUser,userData} = props
   useEffect(() => {
-    props.fetchUserStartAsync();
-  },[]);
+    fetchUser();
+  });
 
   const deleteUserHandler = (e) => {
     e.preventDefault();
     const userId = e.target.dataset.id;
-    props.deleteUser(userId);
+    deleteUser(userId);
   };
 
   return (
@@ -75,11 +79,11 @@ const LandingPage = (props) => {
                     </th>
                   </tr>
                 </thead>
-                {props.userData.loading ? (
+                {userData.loading ? (
                   <h2>Loading...</h2>
                 ) : (
-                  props.userData.users &&
-                  Object.entries(props.userData.users).map((userItem) => (
+                  userData.users &&
+                  Object.entries(userData.users).map((userItem) => (
                     <tbody
                       key={userItem[1]}
                       className="text-sm divide-y divide-gray-100"
@@ -153,8 +157,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    fetchUserStartAsync: () => dispatch(fetchUserStartAsync()),
-    deleteUser: (user) => dispatch(deleteUser(user)),
+    fetchUser: () => dispatch(fetchUsersStartAsync()),
+    deleteUser: (user) => dispatch(deleteUserStartAsync(user)),
   };
 };
 
