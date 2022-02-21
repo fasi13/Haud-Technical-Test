@@ -1,7 +1,7 @@
 import axios from "axios";
+import BASE_URL from "../../config/url";
 import UserActionTypes from "./user.types";
-const BASE_URL =
-  "https://haud-react-test-default-rtdb.firebaseio.com/usersList";
+
 
 export const fetchUsersStart = () => ({
   type: UserActionTypes.FETCH_USERS_START,

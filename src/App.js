@@ -9,6 +9,7 @@ import { createFirestoreInstance } from "redux-firestore";
 import { ReactReduxFirebaseProvider } from "react-redux-firebase";
 import firebase from "firebase/compat/app";
 import "./index.css";
+import Page404 from "./pages/ErrorPage/Page404.component";
 
 const rrfProps = {
   firebase,
@@ -21,14 +22,13 @@ const App = () => (
   <Provider store={store}>
     <ReactReduxFirebaseProvider {...rrfProps}>
       <BrowserRouter>
-        <div>
-          <div className="px-24">
-            <Routes>
-              <Route path="/" element={<LandingPage />} />
-              <Route path="/create-user" element={<CreateUser />} />
-              <Route path="edit-user/:userId" element={<CreateUser />} />
-            </Routes>
-          </div>
+        <div className="px-24">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/create-user" element={<CreateUser />} />
+            <Route path="edit-user/:userId" element={<CreateUser />} />
+            <Route path="*" element={<Page404 />} />
+          </Routes>
         </div>
       </BrowserRouter>
     </ReactReduxFirebaseProvider>
